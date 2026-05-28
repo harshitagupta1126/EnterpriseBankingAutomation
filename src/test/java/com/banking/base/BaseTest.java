@@ -27,6 +27,8 @@ public class BaseTest {
             options.addArguments("--disable-gpu");
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
+            // Forces Chrome to render a standard desktop window layout in memory
+            options.addArguments("--window-size=1920,1080");
             System.out.println(">>> Cloud Environment Detected: Running Chrome in Headless Mode.");
         }
 

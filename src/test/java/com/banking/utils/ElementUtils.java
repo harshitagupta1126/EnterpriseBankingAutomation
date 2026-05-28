@@ -15,7 +15,8 @@ public class ElementUtils {
     // Constructor initializes the driver and sets a default 15-second explicit wait timeout
     public ElementUtils(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        // Increasing timeout to 30 seconds to absorb cloud network latencies cleanly
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
     /**
