@@ -16,15 +16,21 @@ public class BaseTest {
     public void setUp() {
         System.out.println(">>> Setting up the browser environment...");
 
-        // Advanced Option: Configuring Chrome to avoid bot detection and popups
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-notifications");
         options.addArguments("--start-maximized");
 
-        // Initializing the ChromeDriver instance using Selenium 4 native management
-        driver = new ChromeDriver(options);
+        // This checks if the code is running inside GitHub Actions cloud
+        // If it finds the cloud environment, it automatically forces Chrome to run invisibly!
+        if (System.getenv("GITHUB_ACTIONS") != null) {
+            options.addArguments("--headless=new");
+            options.addArguments("--disable-gpu");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+            System.out.println(">>> Cloud Environment Detected: Running Chrome in Headless Mode.");
+        }
 
-        // Smart Implicit Wait: Fallback layer for element synchronization
+        driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
