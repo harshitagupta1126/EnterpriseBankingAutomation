@@ -1,0 +1,26 @@
+name: Enterprise Banking Automation Pipeline
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch: # Allows you to trigger the tests manually with a button click!
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest # Spins up a free cloud Linux machine
+
+    steps:
+      - name: Checkout Code from GitHub
+        uses: actions/checkout@v4
+
+      - name: Set up Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Run TestNG Automation Suite in Headless Mode
+        run: mvn clean test -Dbrowser=chrome
